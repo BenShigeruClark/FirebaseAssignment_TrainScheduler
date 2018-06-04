@@ -22,12 +22,12 @@ var database = firebase().database;
 
 // Get Submit button to work when clicked 
  $(".btn btn-primary btn-lg").on("click", function(event) {
-     
+
  })
 
 
   /* Get input fields to send accepted data to table for Current 
   Train Schedule when Submit button is pressed */
 
-
+// Get data to add onto each additional data entry
 // make sure that the input data is logged and saved in schedule
