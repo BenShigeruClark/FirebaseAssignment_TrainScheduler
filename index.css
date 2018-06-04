@@ -3,7 +3,7 @@
     background-color: rgb(117, 59, 59);
     color: white;
     height: 250px;
-    margin: 20px;
+    margin: 60px;
     line-height: 150px;
     border-radius: 20px;
     /* justify-content: center;
@@ -20,4 +20,19 @@
     text-align: center;
     justify-content: center;
     align-items: center;
+}
+
+.list-group {
+    margin: 60px;
+   
+}
+
+.form-group {
+    margin: 60px;
+    
+}
+
+#submitButton {
+    margin: 60px;
+    
 }
