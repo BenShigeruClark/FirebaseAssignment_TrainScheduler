@@ -1,4 +1,6 @@
-  // Initialize Firebase
+$(document).ready(function() { 
+
+// Initialize Firebase
   var config = {
     apiKey: "AIzaSyCmRPattMEBMcJIMhhR8Oev2IM3EWvOsps",
     authDomain: "trainschedulerhw-6e9f0.firebaseapp.com",
@@ -15,18 +17,18 @@
     // variable to reference database.
   var database = firebase.database();
 
-    //Button Click function 
-   $("#submitButton").on("click", function() {
-     
+    //Button Click function to add train data
+   $("#submitButton").on("click", function(event) {
+    event.preventDefault();
 
 
       // Values from the text boxes
-            var trainName = $('#trainNameInput').val().trim();
-            var destination = $('#destinationInput').val().trim();
-            var firstTrainTime = $('#firstTrainTimeInput').val().trim();
-            var frequency = $('#frequencyInput').val().trim();
-            var nextArrival = moment($("#firstTrainTimeInput").val().trim()).format("hh:mm:ss");
-            var minutesAway = $('minutesAway').val().trim();
+            var trainName = $("#trainNameInput").val().trim();
+            var destination = $("#destinationInput").val().trim();
+            var firstTrainTime = moment($("#firstTrainTimeInput").val().trim(), "MM/DD/YYYY").format("X");
+            var frequency = $("#frequencyInput").val().trim();
+            // var nextArrival = moment($("#firstTrainTimeInput").val().trim()).format("hh:mm:ss");
+            // var minutesAway = $('minutesAway').val().trim();
 
             // console.log(trainName);
             // console.log(destination);
@@ -36,52 +38,83 @@
             // console.log(minutesAway);
 
   // creating a local object that will be pushed to firebase
-           database.ref().push({
+           var newTrain = {
               trainName: trainName,
               destination: destination,
               firstTrainTime: firstTrainTime,
-              frequency: frequency,
-              nextArrival: nextArrival,
-              minutesAway: minutesAway, 
-            });
-        
-            database.push(nextTrain);
+              frequency: frequency  
+            };
         
 
-      //Clear textboxes
-            $("#trainNameInput").val("");
-            $("#destinationInput").val("");
-            $("#firstTrainTimeInput").val("");
-            $("#frequencyInput").val("");
-           
-            // prevent page from refreshing
-            return false;
-        
+          //  console.log(newTrain);
+           //upload to database/firebase
+           database.ref().push(newTrain);
+
+           //log to console
+           console.log(newTrain.trainName);
+           console.log(newTrain.destination);
+           console.log(newTrain.firstTrainTime);
+           console.log(newTrain.frequency);
+
+           alert("Train added!");
+
+           //clear text boxes
+           $("#trainNameInput").val("");
+           $("#destinationInput").val("");
+           $("#firstTrainTimeInput").val("");
+           $("#frequencyInput").val("");
+
           });
 
-
-
-          database.on("child_added", function(childSnapshot) {
-              
-              console.log(childSnapshot.val());
-              console.log(childSnapshot.val().trainName);
-              console.log(childSnapshot.val().destination);
-              console.log(childSnapshot.val().firstTrainTime);
-              console.log(childSnapshot.val().frequency);
-              console.log(childSnapshot.val().nextArrival);
-              console.log(childSnapshot.val().minutesAway);
-
-
-
-              var firebaseTrainName = childSnapshot.val().trainName;
-              console.log(firebaseTrainName);
+          database.ref().on("child_added", function(childSnapshot) {
+            console.log(childSnapshot.val());
           })
 
+        });
+           //log to console
+          //  console.log(newTrain.trainName);
+          //  console.log(newTrain.destination);
+          //  console.log(newTrain.firstTrainTime);
+          //  console.log(newTrain.frequency);
+
+           
+         
+        
+
+      // //Clear textboxes
+      //       $("#trainNameInput").val("");
+      //       $("#destinationInput").val("");
+      //       $("#firstTrainTimeInput").val("");
+      //       $("#frequencyInput").val("");
+           
+      //       // prevent page from refreshing
+      //       return false;
+        
+      //     });
 
 
 
-          $("#trainTable > tbody").append("<tr><td>" + trainName + "</td><td>" + destination + "</td><td>" + firstTrainTime + 
-          "</td><td>" + frequency + "mins" + "</td><td>" + nextArrival + "</td><td>" + minutesAway + "</td></tr>");
+      //     database.on("child_added", function(childSnapshot) {
+              
+      //         console.log(childSnapshot.val());
+      //         console.log(childSnapshot.val().trainName);
+      //         console.log(childSnapshot.val().destination);
+      //         console.log(childSnapshot.val().firstTrainTime);
+      //         console.log(childSnapshot.val().frequency);
+      //         console.log(childSnapshot.val().nextArrival);
+      //         console.log(childSnapshot.val().minutesAway);
+
+
+
+      //         var firebaseTrainName = childSnapshot.val().trainName;
+      //         console.log(firebaseTrainName);
+      //     })
+
+
+
+
+      //     $("#trainTable > tbody").append("<tr><td>" + trainName + "</td><td>" + destination + "</td><td>" + firstTrainTime + 
+      //     "</td><td>" + frequency + "mins" + "</td><td>" + nextArrival + "</td><td>" + minutesAway + "</td></tr>");
 
 
 
